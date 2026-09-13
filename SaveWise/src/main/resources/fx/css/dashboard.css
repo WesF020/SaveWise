@@ -1,0 +1,109 @@
+/* Header: Ou Cabeçalho (pelo menos pro meu inglês) */
+.header {
+    -fx-padding: 20 24 16 24;
+    -fx-background-color: #1e1e2e;
+    -fx-spacing: 4;
+}
+
+.app-title {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+}
+
+.balance-label {
+    -fx-font-size: 15px;
+    -fx-text-fill: #a6e3a1;
+}
+
+/* Table CSS */
+.transaction-table {
+    -fx-background-color: #181825;
+    -fx-border-color: transparent;
+}
+
+.transaction-table .column-header {
+    -fx-background-color: #313244;
+}
+
+.transaction-table .column-header-background {
+    -fx-background-color: #313244;
+}
+
+.transaction-table .column-header .label{
+    -fx-text-fill: #cdd6f4;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+}
+
+.transaction-table .table-row-cell {
+    -fx-background-color: #1e1e2e;
+    -fx-text-fill: #cdd6f4;
+}
+
+.transaction-table .table-row-cell:odd {
+    -fx-background-color: #181825;
+    -fx-text-fill: #cdd6f4;
+}
+
+.transaction-table .table-row-cell:selected {
+    -fx-background-color: #45475a;
+}
+
+.transaction-table .table-cell {
+    -fx-text-fill: #cdd6f4;
+    -fx-font-size: 13px;
+    -fx-padding: 6 10;
+}
+
+/* Buttons: Criação de Botões */
+
+.button-bar {
+    -fx-padding: 12 24;
+    -fx-spacing: 12;
+    -fx-background-color: #1e1e2e;
+}
+
+.btn-primary {
+    -fx-background-color: #89b4fa;
+    -fx-text-fill: #1e1e2e;
+    -fx-font-weight: bold;
+    -fx-padding: 8 18;
+    -fx-background-radius: 6;
+    -fx-cursor: hand;
+}
+
+.btn-primary:hover {
+    -fx-background-color: #74c7ec;
+}
+
+.btn-danger {
+    -fx-background-color: #f38ba8;
+    -fx-text-fill: #1e1e2e;
+    -fx-font-weight: bold;
+    -fx-padding: 8 18;
+    -fx-background-radius: 6;
+    -fx-cursor: hand;
+}
+
+.btn-danger:hover {
+    -fx-background-color: #eba0ac;
+}
+
+.btn-secondary {
+    -fx-background-color: #585b70;
+    -fx-text-fill: #1e1e2e;
+    -fx-font-weight: bold;
+    -fx-padding: 8 18;
+    -fx-background-radius: 6;
+    -fx-cursor: hand;
+}
+
+.btn-secondary:hover {
+    -fx-background-color: #6c7086;
+}
+
+
+
+
+

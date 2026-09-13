@@ -56,21 +56,33 @@ public class MenuCLI {
     }
 
     private void addTransaction(){
-        System.out.println("Description: ");
-        String description = scanner.nextLine();
+        try {
+            System.out.println("Description: ");
+            String description = scanner.nextLine();
 
-        System.out.println("Amount: ");
-        BigDecimal amount = new BigDecimal(scanner.nextLine());
+            System.out.println("Amount: ");
+            BigDecimal amount = new BigDecimal(scanner.nextLine());
 
-        System.out.println("Type (INCOME/EXPENSE): ");
-        TransactionType transactionType = TransactionType.valueOf(scanner.nextLine().toUpperCase());
+            System.out.println("Type (INCOME/EXPENSE): ");
+            TransactionType transactionType = null;
+            try {
+                transactionType = TransactionType.valueOf(scanner.nextLine().toUpperCase());
+            } catch (IllegalArgumentException e) {
+                System.out.println("Invalid type. Please enter INCOME or EXPENSE");
+                return;
+            }
 
-        System.out.println("Category: ");
-        String category = scanner.nextLine();
+            System.out.println("Category: ");
+            String category = scanner.nextLine();
 
-        Transaction transaction = new Transaction(description, amount, transactionType, category, LocalDate.now());
-        transactionService.addTransaction(transaction);
-        System.out.println("Transaction added successfully.");
+            Transaction transaction = new Transaction(description, amount, transactionType, category, LocalDate.now());
+            transactionService.addTransaction(transaction);
+            System.out.println("Transaction added successfully.");
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Unexpected error while saving transaction.");
+        }
 
     }
     private void listTransactions(){
@@ -93,6 +105,8 @@ public class MenuCLI {
             System.out.println("Transaction deleted successfully!");
         } catch (NumberFormatException e) {
             System.out.println("Invalid ID. Please enter a valid number.");
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
         }
     }
 

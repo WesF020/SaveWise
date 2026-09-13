@@ -34,6 +34,12 @@ public class TransactionService {
 
     // Deleta transações
     public void deleteTransaction(int id){
+        boolean exists = transactionDAO.findAll()
+                .stream()
+                .anyMatch(t -> t.getId() == id);
+        if (!exists) {
+            throw new IllegalArgumentException("Transaction with ID " + id + " not found.");
+        }
         transactionDAO.delete(id);
     }
 

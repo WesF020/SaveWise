@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.savewise.ui.fx.controller.DashboardController"
+            stylesheets="@/fx/css/dashboard.css"
+            prefWidth="800" prefHeight="500">
+
+    <!-- Top: Parte Superior -->
+    <top>
+        <VBox styleClass="header">
+            <Label text="SaveWise" styleClass="app-title"/>
+            <Label fx:id="balanceLabel" text="Balance R$ 0,00" styleClass="balance-label"/>
+        </VBox>
+    </top>
+
+    <center>
+        <TableView fx:id="transactionTable" styleClass="transaction-table">
+            <columns>
+                <TableColumn fx:id="co1ID"          text="ID"           prefWidth="50"/>
+                <TableColumn fx:id="co1Description" text="Transaction"  prefWidth="200"/>
+                <TableColumn fx:id="co1Amount"      text="Amount"       prefWidth="120"/>
+                <TableColumn fx:id="co1Type"        text="Type"         prefWidth="100"/>
+                <TableColumn fx:id="co1Category"    text="Category"     prefWidth="120"/>
+                <TableColumn fx:id="co1Date"        text="Date"         prefWidth="110"/>
+            </columns>
+        </TableView>
+    </center>
+
+    <!-- Bottom: botões adicionados -->
+    <bottom>
+        <HBox styleClass="button-bar" alignment="CENTER">
+            <Button fx:id="addButton" text="Add Transaction" styleClass="btn-primary"
+                    onAction="#handleAdd"/>
+            <Button fx:id="deleteButton" text="Delete Transaction" styleClass="btn-danger"
+                    onAction="#handleDelete"/>
+            <Button fx:id="refreshButton" text="Refresh" styleClass="btn-secondary"
+                    onAction="#handleRefresh"/>
+            <BorderPane.margin>
+                <Insets top="10" bottom="10"/>
+            </BorderPane.margin>
+        </HBox>
+    </bottom>
+</BorderPane>

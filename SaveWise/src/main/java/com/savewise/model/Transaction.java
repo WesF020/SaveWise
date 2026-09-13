@@ -27,7 +27,7 @@ public class Transaction {
     }
 
     // Getters
-    public int getID() {return id;}
+    public int getId() {return id;}
     public String getDescription() {return description;}
     public BigDecimal getAmount() {return amount;}
     public TransactionType getType() {return type;}
