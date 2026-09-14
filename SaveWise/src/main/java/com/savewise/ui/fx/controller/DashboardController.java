@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.scene.control.TableCell;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -33,18 +34,38 @@ public class DashboardController {
         co1ID.setCellValueFactory(data ->
                 new javafx.beans.property.SimpleIntegerProperty(
                         data.getValue().getId()).asObject());
+
+
         co1Description.setCellValueFactory(data ->
                 new javafx.beans.property.SimpleStringProperty(
                         data.getValue().getDescription()));
+
+
         co1Amount.setCellValueFactory(data ->
                 new javafx.beans.property.SimpleObjectProperty<>(
                         data.getValue().getAmount()));
+        co1Amount.setCellFactory(column -> new TableCell<Transaction, BigDecimal>(){
+            @Override
+            protected void updateItem(BigDecimal value, boolean empty) {
+                super.updateItem(value, empty);
+                if (empty || value  == null) {
+                    setText(null);
+                } else {
+                    setText(String.format("R$ %,.2f", value));
+                }
+            }
+        });
+
         co1Type.setCellValueFactory(data ->
                 new javafx.beans.property.SimpleStringProperty(
                         data.getValue().getType().name()));
+
+
         co1Category.setCellValueFactory(data ->
                 new javafx.beans.property.SimpleStringProperty(
                         data.getValue().getCategory()));
+
+
         co1Date.setCellValueFactory(data ->
                 new javafx.beans.property.SimpleStringProperty(
                         data.getValue().getDate().toString()));
@@ -89,8 +110,19 @@ public class DashboardController {
             showAlert("Please select a transaction to delete.");
             return;
         }
-        transactionService.deleteTransaction(selected.getId());
-        loadTransactions();
+
+        Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmation.setTitle("Delete Transaction");
+        confirmation.setHeaderText(null);
+        confirmation.setContentText("Are you sure you want to delete \""
+                + selected.getDescription() + "\"?");
+
+        confirmation.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.OK) {
+                transactionService.deleteTransaction(selected.getId());
+                loadTransactions();
+            }
+        });
     }
 
     @FXML

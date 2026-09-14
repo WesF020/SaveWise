@@ -28,6 +28,9 @@
     <Label text="Category"/>
     <TextField fx:id="categoryField" promptText="Ex: Food, Housing..."/>
 
+    <Label text="Date"/>
+    <DatePicker fx:id="datePicker" prefWidth="332"/>
+
     <HBox spacing="12" alignment="CENTER_RIGHT">
         <Button text="Cancel" styleClass="btn-secondary" onAction="#handleCancel"/>
         <Button text="Save" styleClass="btn-primary" onAction="#handleSave"/>

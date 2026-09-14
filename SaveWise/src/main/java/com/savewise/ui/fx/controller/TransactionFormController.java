@@ -7,6 +7,7 @@ import com.savewise.service.TransactionService;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -19,6 +20,7 @@ public class TransactionFormController {
     @FXML private TextField amountField;
     @FXML private ComboBox<TransactionType> typeComboBox;
     @FXML private TextField categoryField;
+    @FXML private DatePicker datePicker;
 
     private final TransactionService transactionService =
             new TransactionService(new TransactionDAOImpl());
@@ -29,6 +31,7 @@ public class TransactionFormController {
                 FXCollections.observableArrayList(TransactionType.values())
         );
         typeComboBox.getSelectionModel().selectFirst();
+        datePicker.setValue(LocalDate.now());
     }
 
     @FXML
@@ -52,8 +55,15 @@ public class TransactionFormController {
         }
 
         try {
+
+            LocalDate  date = datePicker.getValue();
+            if (date == null) {
+                showError("Please select a date.");
+                return;
+            }
+
             Transaction transaction = new Transaction(
-                    description, amount, type, category, LocalDate.now()
+                    description, amount, type, category, date
             );
             transactionService.addTransaction(transaction);
             closeWindow();
