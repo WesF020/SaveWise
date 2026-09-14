@@ -30,7 +30,7 @@ Hotfixes e melhorias de robustez antes de qualquer nova feature.
 ### 1.1 Tratamento de exceções no MenuCLI
 - [x] Tratar `NumberFormatException` no loop principal do menu
 - [x] Tratar `NumberFormatException` no método `deleteTransaction()`
-- [ ] Tratar `IllegalArgumentException` quando o usuário digitar um tipo inválido no lugar de `INCOME/EXPENSE`
+- [x] Tratar `IllegalArgumentException` quando o usuário digitar um tipo inválido no lugar de `INCOME/EXPENSE`
 - [ ] Exibir mensagem amigável em vez de encerrar o programa abruptamente
 
 ```java
@@ -44,8 +44,8 @@ try {
 ```
 
 ### 1.2 Tratamento de ID inexistente no delete
-- [ ] Verificar no `TransactionService` se o ID existe antes de deletar
-- [ ] Retornar mensagem clara ao usuário caso o ID não seja encontrado
+- [x] Verificar no `TransactionService` se o ID existe antes de deletar
+- [x] Retornar mensagem clara ao usuário caso o ID não seja encontrado
 
 ```java
 // Exemplo de verificação esperada no TransactionService
@@ -73,9 +73,9 @@ List<Transaction> findByCategory(String category);
 ```
 
 ### 1.4 Data personalizada no cadastro
-- [ ] Permitir que o usuário informe a data da transação manualmente
+- [x] Permitir que o usuário informe a data da transação manualmente
 - [ ] Usar `LocalDate.parse()` com tratamento de `DateTimeParseException`
-- [ ] Manter `LocalDate.now()` como valor padrão caso o usuário não informe
+- [x] Manter `LocalDate.now()` como valor padrão caso o usuário não informe
 
 ---
 
@@ -86,7 +86,7 @@ mantendo todas as camadas inferiores (`Service`, `DAO`, `Model`) intactas.
 
 ### 2.1 Configuração do ambiente JavaFX
 
-- [ ] Adicionar dependência do JavaFX no `pom.xml`
+- [x] Adicionar dependência do JavaFX no `pom.xml`
 
 ```xml
 <dependency>
@@ -101,7 +101,7 @@ mantendo todas as camadas inferiores (`Service`, `DAO`, `Model`) intactas.
 </dependency>
 ```
 
-- [ ] Adicionar o plugin Maven do JavaFX
+- [x] Adicionar o plugin Maven do JavaFX
 
 ```xml
 <plugin>
