@@ -1,5 +1,6 @@
 package com.savewise.ui.fx.controller;
 
+import com.savewise.core.AppContext;
 import com.savewise.dao.TransactionDAOImpl;
 import com.savewise.model.Transaction;
 import com.savewise.model.TransactionType;
@@ -23,7 +24,7 @@ public class TransactionFormController {
     @FXML private DatePicker datePicker;
 
     private final TransactionService transactionService =
-            new TransactionService(new TransactionDAOImpl());
+            AppContext.getInstance().getTransactionService();
 
     @FXML
     public void initialize() {

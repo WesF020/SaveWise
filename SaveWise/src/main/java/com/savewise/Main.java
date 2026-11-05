@@ -1,14 +1,13 @@
 package com.savewise;
 
-import com.savewise.dao.TransactionDAOImpl;
+import com.savewise.core.AppContext;
 import com.savewise.ui.MenuCLI;
 import com.savewise.service.TransactionService;
 
 
 public class Main {
     public static void main(String[] args) {
-        TransactionDAOImpl transactionDAO = new TransactionDAOImpl();
-        TransactionService transactionService = new TransactionService(transactionDAO);
+        TransactionService transactionService = AppContext.getInstance().getTransactionService();
         MenuCLI menuCLI = new MenuCLI(transactionService);
         menuCLI.start();
     }

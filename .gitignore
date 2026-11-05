@@ -24,4 +24,9 @@ hs_err_pid*
 replay_pid*
 
 # Credentials
-SaveWise/src/main/java/resources/config.properties
+SaveWise/src/main/resources/config.properties
+SaveWise/target/
+
+# IDE
+.idea/
+*.iml
