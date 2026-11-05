@@ -32,6 +32,7 @@ public class DashboardController {
 
     @FXML
     public void initialize(){
+        System.out.println("Dashboard -> " + System.identityHashCode(transactionService));
         co1ID.setCellValueFactory(data ->
                 new javafx.beans.property.SimpleIntegerProperty(
                         data.getValue().getId()).asObject());

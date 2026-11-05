@@ -5,7 +5,7 @@ import com.savewise.dao.TransactionDAOImpl;
 import com.savewise.service.TransactionService;
 
 public class AppContext {
-    private static final AppContext INSTANCE = new AppContext();
+    private static AppContext instance;
 
     private final TransactionService transactionService;
 
@@ -14,8 +14,11 @@ public class AppContext {
         this.transactionService = new TransactionService(transactionDAO);
     }
 
-    public static AppContext getInstance() {
-        return INSTANCE;
+    public static synchronized AppContext getInstance() {
+        if (instance == null) {
+            instance = new AppContext();
+        }
+        return instance;
     }
 
     public TransactionService getTransactionService() {

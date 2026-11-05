@@ -28,6 +28,7 @@ public class TransactionFormController {
 
     @FXML
     public void initialize() {
+        System.out.println("TransactionForm -> " + System.identityHashCode(transactionService));
         typeComboBox.setItems(
                 FXCollections.observableArrayList(TransactionType.values())
         );
