@@ -3,6 +3,7 @@ package com.savewise.core;
 import com.savewise.dao.ITransactionDAO;
 import com.savewise.dao.TransactionDAOImpl;
 import com.savewise.service.TransactionService;
+import com.savewise.dao.decorator.CachingTransactionsDAO;
 
 public class AppContext {
     private static AppContext instance;
@@ -11,6 +12,7 @@ public class AppContext {
 
     private AppContext() {
         ITransactionDAO transactionDAO = new TransactionDAOImpl();
+        transactionDAO = new CachingTransactionsDAO(transactionDAO);
         this.transactionService = new TransactionService(transactionDAO);
     }
 
