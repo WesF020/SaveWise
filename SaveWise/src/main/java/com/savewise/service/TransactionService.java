@@ -3,6 +3,7 @@ package com.savewise.service;
 import com.savewise.dao.ITransactionDAO;
 import com.savewise.model.Transaction;
 import com.savewise.model.TransactionType;
+import com.savewise.service.filter.TransactionFilter;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -57,4 +58,20 @@ public class TransactionService {
         return balance;
     }
 
+    public List<Transaction> filterTransactions(TransactionFilter... filters) {
+        if (filters == null) {
+            throw new IllegalArgumentException("Filter cannot be null.");
+        }
+        for (TransactionFilter filter : filters) {
+            if (filter == null) {
+                throw new IllegalArgumentException("Filter cannot be null.");
+            }
+        }
+
+        List<Transaction> result = transactionDAO.findAll();
+        for (TransactionFilter filter : filters) {
+            result = filter.filter(result);
+        }
+        return result;
+    }
 }
