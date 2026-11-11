@@ -3,14 +3,17 @@ package com.savewise.service;
 import com.savewise.dao.ITransactionDAO;
 import com.savewise.model.Transaction;
 import com.savewise.model.TransactionType;
+import com.savewise.observer.TransactionListener;
 import com.savewise.service.filter.TransactionFilter;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TransactionService {
 
-    public final ITransactionDAO transactionDAO;
+    private final ITransactionDAO transactionDAO;
+    private final List<TransactionListener> listeners = new ArrayList<>();
 
     // Recebe construtor pelo DAO
     public TransactionService (ITransactionDAO transactionDAO){
@@ -26,6 +29,7 @@ public class TransactionService {
             throw new IllegalArgumentException("Description cannot be empty.");
         }
         transactionDAO.save(transaction);
+        notifyListeners();
     }
 
     // Listagem de transações
@@ -42,6 +46,7 @@ public class TransactionService {
             throw new IllegalArgumentException("Transaction with ID " + id + " not found.");
         }
         transactionDAO.delete(id);
+        notifyListeners();
     }
 
     public BigDecimal getBalance() {
@@ -74,4 +79,20 @@ public class TransactionService {
         }
         return result;
     }
+
+    public void addListener(TransactionListener listener) {
+        if (listener == null) {
+            throw new IllegalArgumentException("Listener não pode ser nulo.");
+        }
+        listeners.add(listener);
+    }
+    public void removeListener(TransactionListener listener) {
+        listeners.remove(listener);
+    }
+    private void notifyListeners() {
+        for (TransactionListener listener : new ArrayList<>(listeners)) {
+            listener.onTransactionChanged();
+        }
+    }
+
 }

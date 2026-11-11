@@ -14,6 +14,7 @@ public class AppContext {
         ITransactionDAO transactionDAO = new TransactionDAOImpl();
         transactionDAO = new CachingTransactionsDAO(transactionDAO);
         this.transactionService = new TransactionService(transactionDAO);
+        transactionService.addListener(() -> System.out.println("Observer: alteração na transação. "));
     }
 
     public static synchronized AppContext getInstance() {
