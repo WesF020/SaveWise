@@ -2,6 +2,7 @@ package com.savewise.core;
 
 import com.savewise.dao.ITransactionDAO;
 import com.savewise.dao.TransactionDAOImpl;
+import com.savewise.observer.ConsoleLogListener;
 import com.savewise.service.TransactionService;
 import com.savewise.dao.decorator.CachingTransactionsDAO;
 
@@ -14,7 +15,7 @@ public class AppContext {
         ITransactionDAO transactionDAO = new TransactionDAOImpl();
         transactionDAO = new CachingTransactionsDAO(transactionDAO);
         this.transactionService = new TransactionService(transactionDAO);
-        transactionService.addListener(() -> System.out.println("Observer: alteração na transação. "));
+        this.transactionService.addListener(new ConsoleLogListener());
     }
 
     public static synchronized AppContext getInstance() {

@@ -1,8 +1,9 @@
 package com.savewise.ui.fx.controller;
 
 import com.savewise.core.AppContext;
-import com.savewise.dao.TransactionDAOImpl;
 import com.savewise.model.Transaction;
+import com.savewise.observer.TransactionEvent;
+import com.savewise.observer.TransactionListener;
 import com.savewise.service.TransactionService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,7 +18,7 @@ import javafx.scene.control.TableCell;
 import java.math.BigDecimal;
 import java.util.List;
 
-public class DashboardController {
+public class DashboardController implements TransactionListener {
     @FXML private Label balanceLabel;
     @FXML private TableView<Transaction> transactionTable;
     @FXML private TableColumn<Transaction, Integer>     co1ID;
@@ -72,7 +73,8 @@ public class DashboardController {
                 new javafx.beans.property.SimpleStringProperty(
                         data.getValue().getDate().toString()));
 
-        loadTransactions();
+        loadTransactions();           // Esse fica
+        transactionService.addListener(this);
     }
 
     private void loadTransactions() {
@@ -97,7 +99,7 @@ public class DashboardController {
             stage.setScene(scene);
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.showAndWait();
-            loadTransactions();
+            // Remover aqui loadTransactions()
         } catch (Exception e) {
             e.printStackTrace();
             showAlert("Error opening form " + e.getCause());
@@ -122,7 +124,7 @@ public class DashboardController {
         confirmation.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
                 transactionService.deleteTransaction(selected.getId());
-                loadTransactions();
+                // Remover aqui  loadTransactions()
             }
         });
     }
@@ -137,5 +139,11 @@ public class DashboardController {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
+    @Override
+    public void onTransactionsChanged(TransactionEvent event) {
+        loadTransactions();
+    }
+
 
 }

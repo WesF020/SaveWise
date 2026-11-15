@@ -1,5 +1,5 @@
 package com.savewise.observer;
 
 public interface TransactionListener {
-    void onTransactionChanged();
+    void onTransactionsChanged(TransactionEvent event);
 }

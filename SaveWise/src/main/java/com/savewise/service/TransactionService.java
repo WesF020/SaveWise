@@ -3,6 +3,7 @@ package com.savewise.service;
 import com.savewise.dao.ITransactionDAO;
 import com.savewise.model.Transaction;
 import com.savewise.model.TransactionType;
+import com.savewise.observer.TransactionEvent;
 import com.savewise.observer.TransactionListener;
 import com.savewise.service.filter.TransactionFilter;
 
@@ -29,7 +30,7 @@ public class TransactionService {
             throw new IllegalArgumentException("Description cannot be empty.");
         }
         transactionDAO.save(transaction);
-        notifyListeners();
+        notifyListeners(TransactionEvent.ADDED);
     }
 
     // Listagem de transações
@@ -46,7 +47,7 @@ public class TransactionService {
             throw new IllegalArgumentException("Transaction with ID " + id + " not found.");
         }
         transactionDAO.delete(id);
-        notifyListeners();
+        notifyListeners(TransactionEvent.DELETED);
     }
 
     public BigDecimal getBalance() {
@@ -89,9 +90,10 @@ public class TransactionService {
     public void removeListener(TransactionListener listener) {
         listeners.remove(listener);
     }
-    private void notifyListeners() {
+
+    private void notifyListeners(TransactionEvent event) {
         for (TransactionListener listener : new ArrayList<>(listeners)) {
-            listener.onTransactionChanged();
+            listener.onTransactionsChanged(event);
         }
     }
 
